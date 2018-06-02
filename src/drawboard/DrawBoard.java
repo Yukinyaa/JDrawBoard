@@ -19,8 +19,8 @@ public class DrawBoard {
     public static void main(String[] args) {
         // TODO code application logic here
         JFrame window = new JFrame("Skeleton");
-        window.setContentPane(new Right());
-         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        window.setContentPane(new DrawingPanel());
+        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.pack();
         window.setVisible(true);
     }

@@ -9,12 +9,12 @@ package drawboard;
  *
  * @author User
  */
-public class Right extends javax.swing.JPanel {
+public class DrawingPanel extends javax.swing.JPanel {
 
     /**
      * Creates new form Right
      */
-    public Right() {
+    public DrawingPanel() {
         initComponents();
     }
 
@@ -27,8 +27,6 @@ public class Right extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
         SaveAsButton = new javax.swing.JButton();
         Rbutton = new javax.swing.JToggleButton();
         CButton = new javax.swing.JToggleButton();
@@ -42,17 +40,13 @@ public class Right extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         LoadImageButton = new javax.swing.JButton();
         OpacitySlider = new javax.swing.JSlider();
-
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        drawCanvas = new drawboard.DrawCanvas();
 
         SaveAsButton.setText("Save As");
 
         Rbutton.setText("R");
 
         CButton.setText("C");
-        CButton.setActionCommand("C");
 
         SaveButton.setText("Save");
 
@@ -110,6 +104,19 @@ public class Right extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
+        drawCanvas.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout drawCanvasLayout = new javax.swing.GroupLayout(drawCanvas);
+        drawCanvas.setLayout(drawCanvasLayout);
+        drawCanvasLayout.setHorizontalGroup(
+            drawCanvasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        drawCanvasLayout.setVerticalGroup(
+            drawCanvasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 403, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -133,13 +140,13 @@ public class Right extends javax.swing.JPanel {
                         .addComponent(CButton)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(207, 207, 207)
                         .addComponent(SaveButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(SaveAsButton))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 664, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(drawCanvas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(6, 6, 6))
         );
         layout.setVerticalGroup(
@@ -148,14 +155,12 @@ public class Right extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 403, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(drawCanvas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(SaveAsButton)
-                                    .addComponent(SaveButton))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(SaveAsButton)
+                                .addComponent(SaveButton))
                             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(RectangleButton)
@@ -203,8 +208,7 @@ public class Right extends javax.swing.JPanel {
     private javax.swing.JButton SaveButton;
     private javax.swing.JButton SpoidButton;
     private javax.swing.JButton TriangleButton;
+    private drawboard.DrawCanvas drawCanvas;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
     // End of variables declaration//GEN-END:variables
 }
