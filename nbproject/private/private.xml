@@ -2,6 +2,14 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/C:/Users/woong/Documents/JDrawBoard/src/drawboard/ShapeManager.java</file>
+            <file>file:/C:/Users/woong/Documents/JDrawBoard/src/drawboard/DrawCanvas.java</file>
+            <file>file:/C:/Users/woong/Documents/JDrawBoard/src/drawboard/Vector2.java</file>
+            <file>file:/C:/Users/woong/Documents/JDrawBoard/src/drawboard/Shape.java</file>
+            <file>file:/C:/Users/woong/Documents/JDrawBoard/src/drawboard/SRectangle.java</file>
+            <file>file:/C:/Users/woong/Documents/JDrawBoard/src/drawboard/CursorManager.java</file>
+            <file>file:/C:/Users/woong/Documents/JDrawBoard/src/drawboard/Main.java</file>
+        </group>
     </open-files>
 </project-private>

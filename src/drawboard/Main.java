@@ -11,7 +11,7 @@ import javax.swing.*;
  *
  * @author User
  */
-public class DrawBoard {
+public class Main {
 
     /**
      * @param args the command line arguments
@@ -20,6 +20,7 @@ public class DrawBoard {
         // TODO code application logic here
         JFrame window = new JFrame("Skeleton");
         window.setContentPane(new DrawingPanel());
+        window.setResizable(false);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.pack();
         window.setVisible(true);

@@ -25,14 +25,27 @@ public class Vector2 {
         this.y = y;
     }
     
-    public float Size()
+     public Vector2(Vector2 cp)
+     {
+         this.x = cp.x;
+         this.y = cp.y;
+     }
+    public Vector2 rotate(float rot)
+    {
+        return new Vector2(
+                (float)( x*Math.cos(rot) - y*Math.sin(rot) ),
+                (float)( x*Math.sin(rot) + y*Math.cos(rot) )
+        );
+    }
+    
+    public float Magnitude()
     {
         return (float)Math.sqrt(this.x * this.x + this.y * this.y);
     }
     
-    public Vector2 Multiply(float x)
+    public Vector2 Multiply(float n)
     {
-        return new Vector2(this.x * x , this.y * y);
+        return new Vector2(this.x * n , this.y * n);
     }
     public Vector2 Add(Vector2 that)
     {
@@ -43,9 +56,40 @@ public class Vector2 {
     {
         return new Vector2(a.x + b.x , a.y + b.y);
     }
+    public Vector2 Subtract(Vector2 that)
+    {
+        return new Vector2(this.x - that.x , this.y - that.y);
+    }
+    static public Vector2 Subtract(Vector2 a ,Vector2 b)
+    {
+        return new Vector2(a.x - b.x , a.y - b.y);
+    }
         
     // Compare two vectors
     public boolean equals(Vector2 other) {
         return (this.x == other.x && this.y == other.y);
     }
+    
+    public static float GetAngle(Vector2 from, Vector2 to)
+    {
+        return -(float)(Math.atan(from.y/from.x) - Math.atan(to.y/to.x));
+    }
+    @Override
+    public String toString()
+    {
+        return "(" + x + "," + y + ")";
+    }
+    public float ManhattanSize()
+    {
+        return Math.abs(x) + Math.abs(y);
+    }
+    public Vector2 Reciprocal()
+    {
+        return new Vector2(1 / x, 1 / y);
+    }
+    public Vector2 Remap(Vector2 mapSize)
+    {
+        return new Vector2(x * mapSize.x, y * mapSize.y);
+    }
+    
 }
