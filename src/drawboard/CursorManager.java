@@ -140,7 +140,7 @@ public class CursorManager implements MouseListener, MouseMotionListener{
 
             if(pressedAnchor == null) for(Anchor v : anchors)
             {
-                if(v.v2pos.Remap(canvassize).Subtract(mouseLocation).ManhattanSize() < 3 )
+                if(v.enabled == true && v.v2pos.Remap(canvassize).Subtract(mouseLocation).ManhattanSize() < 3)
                 {
                     pressedAnchor = v;
                     break;

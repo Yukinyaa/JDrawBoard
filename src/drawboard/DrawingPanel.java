@@ -5,6 +5,9 @@
  */
 package drawboard;
 
+import java.awt.Color;
+import java.awt.event.ItemEvent;
+
 /**
  *
  * @author User
@@ -29,8 +32,7 @@ public class DrawingPanel extends javax.swing.JPanel {
 
         leftBarPanel = new javax.swing.JPanel();
         SpoidButton = new javax.swing.JButton();
-        Rbutton = new javax.swing.JToggleButton();
-        CButton = new javax.swing.JToggleButton();
+        ModeSelectToggleButton = new javax.swing.JToggleButton();
         RectangleButton = new javax.swing.JButton();
         TriangleButton = new javax.swing.JButton();
         CircleButton = new javax.swing.JButton();
@@ -45,23 +47,18 @@ public class DrawingPanel extends javax.swing.JPanel {
         drawCanvas1 = new drawboard.DrawCanvas();
 
         SpoidButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/drawboard/spoid_icon.png"))); // NOI18N
+        SpoidButton.setFocusable(false);
         SpoidButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 SpoidButtonActionPerformed(evt);
             }
         });
 
-        Rbutton.setText("R");
-        Rbutton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                RSelectMouseClicked(evt);
-            }
-        });
-
-        CButton.setText("C");
-        CButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                CSelectMousePressed(evt);
+        ModeSelectToggleButton.setText("R");
+        ModeSelectToggleButton.setFocusable(false);
+        ModeSelectToggleButton.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                ModeSelectToggleButtonItemStateChanged(evt);
             }
         });
 
@@ -81,53 +78,45 @@ public class DrawingPanel extends javax.swing.JPanel {
 
         ColorButton.setBackground(new java.awt.Color(255, 255, 255));
         ColorButton.setText("color");
+        ColorButton.setFocusable(false);
 
         javax.swing.GroupLayout leftBarPanelLayout = new javax.swing.GroupLayout(leftBarPanel);
         leftBarPanel.setLayout(leftBarPanelLayout);
         leftBarPanelLayout.setHorizontalGroup(
             leftBarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-            .addGroup(leftBarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(leftBarPanelLayout.createSequentialGroup()
-                    .addGap(5, 5, 5)
-                    .addGroup(leftBarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(CircleButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(RectangleButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(OctagonButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(TriangleButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(leftBarPanelLayout.createSequentialGroup()
-                            .addComponent(ColorButton)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(SpoidButton, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, leftBarPanelLayout.createSequentialGroup()
-                            .addGap(0, 0, Short.MAX_VALUE)
-                            .addComponent(Rbutton)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(CButton)))
-                    .addGap(5, 5, 5)))
+            .addGroup(leftBarPanelLayout.createSequentialGroup()
+                .addGap(5, 5, 5)
+                .addGroup(leftBarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(CircleButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(RectangleButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(OctagonButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(TriangleButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, leftBarPanelLayout.createSequentialGroup()
+                        .addComponent(ColorButton, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(SpoidButton, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 13, Short.MAX_VALUE)))
+                .addGap(5, 5, 5))
+            .addComponent(ModeSelectToggleButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         leftBarPanelLayout.setVerticalGroup(
             leftBarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 275, Short.MAX_VALUE)
-            .addGroup(leftBarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(leftBarPanelLayout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(RectangleButton)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(TriangleButton)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(CircleButton)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(OctagonButton)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addGroup(leftBarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(ColorButton)
-                        .addComponent(SpoidButton, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGap(70, 70, 70)
-                    .addGroup(leftBarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(CButton, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(Rbutton, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+            .addGroup(leftBarPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(RectangleButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(TriangleButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(CircleButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(OctagonButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(leftBarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(ColorButton)
+                    .addComponent(SpoidButton, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(ModeSelectToggleButton)
+                .addContainerGap(85, Short.MAX_VALUE))
         );
 
         bottomPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -244,7 +233,7 @@ public class DrawingPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void SpoidButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SpoidButtonActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_SpoidButtonActionPerformed
 
     private void loadImageButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadImageButtonActionPerformed
@@ -265,25 +254,29 @@ public class DrawingPanel extends javax.swing.JPanel {
         drawCanvas1.c.NewShape(new SRectangle(drawCanvas1.s));
     }//GEN-LAST:event_RectangleButtonMouseClicked
 
-    private void RSelectMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RSelectMouseClicked
-        if(evt.getButton() != 1)
-            return;
-        drawCanvas1.c.d  = DrawingMode.R;
-    }//GEN-LAST:event_RSelectMouseClicked
-
-    private void CSelectMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CSelectMousePressed
-        if(evt.getButton() != 1)
-            return;
-        drawCanvas1.c.d  = DrawingMode.C;
-    }//GEN-LAST:event_CSelectMousePressed
+    private void ModeSelectToggleButtonItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_ModeSelectToggleButtonItemStateChanged
+        drawCanvas1.init();
+        
+        if(evt.getStateChange()==ItemEvent.SELECTED)
+        {
+            ModeSelectToggleButton.setBackground(new Color(0x22ff22));
+            ModeSelectToggleButton.setText("Rectangular");
+            drawCanvas1.c.d  = DrawingMode.R;
+        }
+        else if(evt.getStateChange()==ItemEvent.DESELECTED)
+        {
+            ModeSelectToggleButton.setBackground(new Color(0x22ff22));
+            ModeSelectToggleButton.setText("Circular");
+            drawCanvas1.c.d  = DrawingMode.C;
+        }
+    }//GEN-LAST:event_ModeSelectToggleButtonItemStateChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JToggleButton CButton;
     private javax.swing.JButton CircleButton;
     private javax.swing.JButton ColorButton;
+    private javax.swing.JToggleButton ModeSelectToggleButton;
     private javax.swing.JButton OctagonButton;
-    private javax.swing.JToggleButton Rbutton;
     private javax.swing.JButton RectangleButton;
     private javax.swing.JButton SpoidButton;
     private javax.swing.JButton TriangleButton;

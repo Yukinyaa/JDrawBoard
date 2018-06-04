@@ -173,6 +173,8 @@ public abstract class Shape {
     {
         for(Anchor anchor : anchors)
         {
+            if(anchor.enabled == false)
+                continue;
             g.setColor(Color.white);
             g.fillRect((int)( anchor.v2pos.x * canvassize.x)-4, (int)( anchor.v2pos.y * canvassize.y)-4, 7, 7);
             g.setColor(Color.black);
