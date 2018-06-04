@@ -52,8 +52,18 @@ public class DrawingPanel extends javax.swing.JPanel {
         });
 
         Rbutton.setText("R");
+        Rbutton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                RSelectMouseClicked(evt);
+            }
+        });
 
         CButton.setText("C");
+        CButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                CSelectMousePressed(evt);
+            }
+        });
 
         RectangleButton.setText("Rectangle");
         RectangleButton.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -254,6 +264,18 @@ public class DrawingPanel extends javax.swing.JPanel {
             return;
         drawCanvas1.c.NewShape(new SRectangle(drawCanvas1.s));
     }//GEN-LAST:event_RectangleButtonMouseClicked
+
+    private void RSelectMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RSelectMouseClicked
+        if(evt.getButton() != 1)
+            return;
+        drawCanvas1.c.d  = DrawingMode.R;
+    }//GEN-LAST:event_RSelectMouseClicked
+
+    private void CSelectMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CSelectMousePressed
+        if(evt.getButton() != 1)
+            return;
+        drawCanvas1.c.d  = DrawingMode.C;
+    }//GEN-LAST:event_CSelectMousePressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

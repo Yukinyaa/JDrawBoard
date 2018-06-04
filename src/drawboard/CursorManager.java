@@ -21,7 +21,7 @@ public class CursorManager implements MouseListener, MouseMotionListener{
     ArrayList<Anchor> anchors = new ArrayList<>();
     Vector2 canvassize;
     ShapeManager s;
-    DrawingMode d = DrawingMode.R;
+    public DrawingMode d = DrawingMode.C;
     Shape newShape = null;
     DrawCanvas canvas;
     

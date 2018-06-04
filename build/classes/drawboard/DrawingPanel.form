@@ -124,11 +124,17 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="R"/>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="RSelectMouseClicked"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JToggleButton" name="CButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="C"/>
           </Properties>
+          <Events>
+            <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="CSelectMousePressed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="RectangleButton">
           <Properties>
