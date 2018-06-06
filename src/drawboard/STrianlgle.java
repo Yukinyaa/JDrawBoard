@@ -13,31 +13,31 @@ import java.awt.Polygon;
  *
  * @author woong
  */
-public class SRectangle extends Shape {
-    public SRectangle(ShapeManager parent)
+public class STrianlgle extends Shape {
+    public STrianlgle(ShapeManager parent)
     {
         super(parent);
     }
     @Override
     public void RecalculatePolygon()
     {
-        int xpoints[] = {0,0,0,0}, ypoints[]={0,0,0,0};
+        int xpoints[] = {0,0,0}, ypoints[]={0,0,0};
         Vector2 canvassize = parent.canvassize;
         for(Anchor anchor : anchors)
         {
             switch(anchor.posatshape)
             {
                 case lefttop:
-                    xpoints[0] = (int)(anchor.v2pos.x * canvassize.x);
-                    ypoints[0] = (int)(anchor.v2pos.y * canvassize.y);
+                    xpoints[0] += (int)(anchor.v2pos.x * canvassize.x / 2);
+                    ypoints[0] += (int)(anchor.v2pos.y * canvassize.y / 2);
                     break;
                 case righttop:
-                    xpoints[1] = (int)(anchor.v2pos.x * canvassize.x);
-                    ypoints[1] = (int)(anchor.v2pos.y * canvassize.y);
+                    xpoints[0] += (int)(anchor.v2pos.x * canvassize.x / 2);
+                    ypoints[0] += (int)(anchor.v2pos.y * canvassize.y / 2);
                     break;
                 case leftbot:
-                    xpoints[3] = (int)(anchor.v2pos.x * canvassize.x);
-                    ypoints[3] = (int)(anchor.v2pos.y * canvassize.y);
+                    xpoints[1] = (int)(anchor.v2pos.x * canvassize.x);
+                    ypoints[1] = (int)(anchor.v2pos.y * canvassize.y);
                     break;
                 case rightbot:
                     xpoints[2] = (int)(anchor.v2pos.x * canvassize.x);
@@ -46,7 +46,7 @@ public class SRectangle extends Shape {
             }
         }
         
-        polygon = new Polygon(xpoints,ypoints,4);
+        polygon = new Polygon(xpoints,ypoints,3);
     }
     
             

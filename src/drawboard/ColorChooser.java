@@ -5,7 +5,9 @@
  */
 package drawboard;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.GridLayout;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
@@ -35,17 +37,17 @@ public class ColorChooser extends JFrame {
     public void InitComponents()
     {
         JPanel panel = new JPanel();
-        
-        panel.add(colorChooser = new JColorChooser());
+        panel.setLayout(new BorderLayout());
+        panel.add(colorChooser = new JColorChooser(),BorderLayout.CENTER);
         JButton button;
-        panel.add(button = new JButton());
+        panel.add(button = new JButton("OK"),BorderLayout.SOUTH);
         button.addMouseListener(new MouseListener(){
             @Override
             public void mouseClicked(MouseEvent e) 
             {
                 if(e.getButton() != 1)
                     return;
-                setEnabled(false);
+                ColorChooser.GetWindow().setVisible(false);
             }
 
             @Override

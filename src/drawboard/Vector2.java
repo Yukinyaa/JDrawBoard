@@ -72,7 +72,10 @@ public class Vector2 {
     
     public static float GetAngle(Vector2 from, Vector2 to)
     {
-        return -(float)(Math.atan(from.y/from.x) - Math.atan(to.y/to.x));
+        //Vector2 temp =new Vector2(from.x, from.y).Remap(to.Reciprocal());
+        return (float)
+                Math.asin((from.x*to.y - from.y*to.x)/
+                                    (from.Magnitude()*to.Magnitude()) );
     }
     @Override
     public String toString()

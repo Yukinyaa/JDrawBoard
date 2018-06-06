@@ -8,6 +8,7 @@ package drawboard;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.event.MouseEvent;
 import javax.swing.SwingUtilities;
@@ -21,6 +22,22 @@ public class DrawCanvas extends javax.swing.JPanel {
     boolean isInitalized = false;
     public ShapeManager s;
     public CursorManager c;
+    
+    public DrawCanvas()
+    {
+        super();
+    }
+    
+    Image bgimg;
+    float bgalpha;
+    public void SetBGImg(Image bgimg)
+    {
+        this.bgimg=bgimg;
+    }
+    public void SetBGAlpha(float alpha)
+    {
+        bgalpha = alpha;
+    }
     public Vector2 GetSize()
     {
         return new Vector2(this.getWidth(), this.getHeight());
@@ -47,16 +64,15 @@ public class DrawCanvas extends javax.swing.JPanel {
     @Override
     public void paintComponent(Graphics g)
     {
-        while(DrawCanvas.renderLock)
-            try { Thread.sleep(1); } catch (InterruptedException ie) { }
         ((Graphics2D)g).setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        renderLock = true;
         init();
         g.setColor(Color.white);
         g.clearRect(0,0,this.getWidth(), this.getHeight());
+        g.drawImage(bgimg,0,0,this.getWidth(), this.getHeight(),this);
+        g.setColor(new Color(1,1,1,1-bgalpha));
+        g.fillRect(0,0,this.getWidth(), this.getHeight());
         s.DrawAll(g, new Vector2(this.getWidth(), this.getHeight()));
         c.DrawHints(g, new Vector2(this.getWidth(), this.getHeight()));
-        renderLock = false;
     }
     
     class RePaintThread extends Thread {

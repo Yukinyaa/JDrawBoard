@@ -28,6 +28,11 @@ public class ShapeManager {
     {
         shapes.remove(s);
     }
+    public void ShapeToTop(Shape s)
+    {
+        shapes.add(s);
+        shapes.remove(s);
+    }
     public Shape GetShape(Vector2 pos)
     {
         for(Shape s : shapes)

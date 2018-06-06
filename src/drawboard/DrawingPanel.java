@@ -7,9 +7,14 @@ package drawboard;
 
 import java.awt.Color;
 import java.awt.event.ItemEvent;
+import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
+import javax.swing.JFileChooser;
+import java.awt.Image;
+import java.io.IOException;
+import javax.imageio.ImageIO;
+import javax.swing.JSlider;
 /**
  *
  * @author User
@@ -34,7 +39,6 @@ public class DrawingPanel extends javax.swing.JPanel {
 
         jSlider1 = new javax.swing.JSlider();
         leftBarPanel = new javax.swing.JPanel();
-        SpoidButton = new javax.swing.JButton();
         ModeSelectToggleButton = new javax.swing.JToggleButton();
         RectangleButton = new javax.swing.JButton();
         TriangleButton = new javax.swing.JButton();
@@ -45,21 +49,12 @@ public class DrawingPanel extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         FillColorButton = new javax.swing.JButton();
         BorderColorButoon = new javax.swing.JButton();
+        CurveSelectButton = new javax.swing.JButton();
         bottomPanel = new javax.swing.JPanel();
         imagePanel = new javax.swing.JPanel();
         loadImageButton = new javax.swing.JButton();
         opacitySlider = new javax.swing.JSlider();
-        saveAsButton = new javax.swing.JButton();
-        saveButton = new javax.swing.JButton();
         drawCanvas1 = new drawboard.DrawCanvas();
-
-        SpoidButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/drawboard/spoid_icon.png"))); // NOI18N
-        SpoidButton.setFocusable(false);
-        SpoidButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SpoidButtonActionPerformed(evt);
-            }
-        });
 
         ModeSelectToggleButton.setText("Rectangular");
         ModeSelectToggleButton.setFocusable(false);
@@ -77,11 +72,26 @@ public class DrawingPanel extends javax.swing.JPanel {
         });
 
         TriangleButton.setText("Triangle");
+        TriangleButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TriangleButtonMouseClicked(evt);
+            }
+        });
 
         CircleButton.setText("Circle");
+        CircleButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                CircleButtonMouseClicked(evt);
+            }
+        });
 
-        OctagonButton.setText("Octagon");
+        OctagonButton.setText("Rhombus");
         OctagonButton.setToolTipText("");
+        OctagonButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                OctagonButtonMouseClicked(evt);
+            }
+        });
 
         ColorButton.setBackground(new java.awt.Color(255, 255, 255));
         ColorButton.setText("color");
@@ -112,46 +122,38 @@ public class DrawingPanel extends javax.swing.JPanel {
             }
         });
 
+        CurveSelectButton.setLabel("Curve");
+        CurveSelectButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                CurveSelectButtonMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout leftBarPanelLayout = new javax.swing.GroupLayout(leftBarPanel);
         leftBarPanel.setLayout(leftBarPanelLayout);
         leftBarPanelLayout.setHorizontalGroup(
             leftBarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, leftBarPanelLayout.createSequentialGroup()
-                .addGroup(leftBarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(leftBarPanelLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(leftBarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, leftBarPanelLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(7, 7, 7))
-                            .addComponent(ModeSelectToggleButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(leftBarPanelLayout.createSequentialGroup()
-                        .addGap(5, 5, 5)
-                        .addGroup(leftBarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(CircleButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(RectangleButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(OctagonButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(TriangleButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addGap(21, 21, 21))
-            .addGroup(leftBarPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(leftBarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(leftBarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(BorderColorButoon, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
                     .addGroup(leftBarPanelLayout.createSequentialGroup()
-                        .addComponent(FillColorButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())
-                    .addGroup(leftBarPanelLayout.createSequentialGroup()
-                        .addComponent(BorderColorButoon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, leftBarPanelLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jLabel1)
                         .addGap(30, 30, 30))
+                    .addComponent(FillColorButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(ColorButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(leftBarPanelLayout.createSequentialGroup()
-                        .addComponent(ColorButton, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(SpoidButton, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(7, 7, 7))
+                    .addComponent(ModeSelectToggleButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(CircleButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(RectangleButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(OctagonButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(TriangleButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(CurveSelectButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         leftBarPanelLayout.setVerticalGroup(
             leftBarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -164,10 +166,10 @@ public class DrawingPanel extends javax.swing.JPanel {
                 .addComponent(CircleButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(OctagonButton)
-                .addGap(51, 51, 51)
-                .addGroup(leftBarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(ColorButton)
-                    .addComponent(SpoidButton, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(CurveSelectButton)
+                .addGap(22, 22, 22)
+                .addComponent(ColorButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -202,7 +204,13 @@ public class DrawingPanel extends javax.swing.JPanel {
             }
         });
 
+        opacitySlider.setMaximum(1000);
         opacitySlider.setValue(100);
+        opacitySlider.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                opacitySliderStateChanged(evt);
+            }
+        });
 
         javax.swing.GroupLayout imagePanelLayout = new javax.swing.GroupLayout(imagePanel);
         imagePanel.setLayout(imagePanelLayout);
@@ -223,15 +231,6 @@ public class DrawingPanel extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        saveAsButton.setText("Save As");
-        saveAsButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                saveAsButtonActionPerformed(evt);
-            }
-        });
-
-        saveButton.setText("Save");
-
         javax.swing.GroupLayout bottomPanelLayout = new javax.swing.GroupLayout(bottomPanel);
         bottomPanel.setLayout(bottomPanelLayout);
         bottomPanelLayout.setHorizontalGroup(
@@ -239,21 +238,13 @@ public class DrawingPanel extends javax.swing.JPanel {
             .addGroup(bottomPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(imagePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 251, Short.MAX_VALUE)
-                .addComponent(saveButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(saveAsButton)
-                .addContainerGap())
+                .addContainerGap(415, Short.MAX_VALUE))
         );
         bottomPanelLayout.setVerticalGroup(
             bottomPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bottomPanelLayout.createSequentialGroup()
                 .addContainerGap(11, Short.MAX_VALUE)
-                .addGroup(bottomPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(bottomPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(saveAsButton)
-                        .addComponent(saveButton))
-                    .addComponent(imagePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(imagePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -274,13 +265,15 @@ public class DrawingPanel extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(bottomPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(bottomPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 15, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(leftBarPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(drawCanvas1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(12, 12, 12))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -295,21 +288,23 @@ public class DrawingPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void SpoidButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SpoidButtonActionPerformed
-        
-    }//GEN-LAST:event_SpoidButtonActionPerformed
-
     private void loadImageButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadImageButtonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_loadImageButtonActionPerformed
-
+    final JFileChooser fc = new JFileChooser();
+    
     private void loadImageButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loadImageButtonMouseClicked
+        int returnVal = fc.showOpenDialog(this);
         
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            try {
+                Image img = ImageIO.read(fc.getSelectedFile());
+                drawCanvas1.SetBGImg(img);
+            } catch (IOException ex) {
+            }
+        } else {
+        }
     }//GEN-LAST:event_loadImageButtonMouseClicked
-
-    private void saveAsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveAsButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_saveAsButtonActionPerformed
 
     private void RectangleButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RectangleButtonMouseClicked
         if(evt.getButton() != 1)
@@ -343,7 +338,6 @@ public class DrawingPanel extends javax.swing.JPanel {
     private void FillColorButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_FillColorButtonMouseClicked
         if(evt.getButton() != 1)
             return;
-        System.out.println("LALALA" + selectedColor);
         if(drawCanvas1.s.selectedShape !=  null)
             drawCanvas1.s.selectedShape.fillcolor = selectedColor;
     }//GEN-LAST:event_FillColorButtonMouseClicked
@@ -351,10 +345,40 @@ public class DrawingPanel extends javax.swing.JPanel {
     private void BorderColorButoonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BorderColorButoonMouseClicked
         if(evt.getButton() != 1)
             return;
-        System.out.println("LALALA" + selectedColor);
         if(drawCanvas1.s.selectedShape !=  null)
             drawCanvas1.s.selectedShape.color = selectedColor;
     }//GEN-LAST:event_BorderColorButoonMouseClicked
+
+    private void CircleButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CircleButtonMouseClicked
+        if(evt.getButton() != 1)
+                    return;
+        drawCanvas1.c.NewShape(new SCircle(drawCanvas1.s));        // TODO add your handling code here:
+    }//GEN-LAST:event_CircleButtonMouseClicked
+
+    private void TriangleButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TriangleButtonMouseClicked
+        if(evt.getButton() != 1)
+                    return;
+        drawCanvas1.c.NewShape(new STrianlgle(drawCanvas1.s)); 
+    }//GEN-LAST:event_TriangleButtonMouseClicked
+
+    private void OctagonButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_OctagonButtonMouseClicked
+         if(evt.getButton() != 1)
+                    return;
+        drawCanvas1.c.NewShape(new SRhombus(drawCanvas1.s)); 
+    }//GEN-LAST:event_OctagonButtonMouseClicked
+
+    private void CurveSelectButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CurveSelectButtonMouseClicked
+        if(evt.getButton() != 1)
+                    return;
+        drawCanvas1.c.NewShape(new SCurve(drawCanvas1.s)); 
+    }//GEN-LAST:event_CurveSelectButtonMouseClicked
+
+    private void opacitySliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_opacitySliderStateChanged
+        JSlider source = (JSlider)evt.getSource();
+        if (!source.getValueIsAdjusting()) {
+            drawCanvas1.SetBGAlpha(source.getValue()/1000f);
+        }
+    }//GEN-LAST:event_opacitySliderStateChanged
 
     
     class ColorUpdateThread extends Thread {
@@ -379,11 +403,11 @@ public class DrawingPanel extends javax.swing.JPanel {
     private javax.swing.JButton BorderColorButoon;
     private javax.swing.JButton CircleButton;
     private javax.swing.JButton ColorButton;
+    private javax.swing.JButton CurveSelectButton;
     private javax.swing.JButton FillColorButton;
     private javax.swing.JToggleButton ModeSelectToggleButton;
     private javax.swing.JButton OctagonButton;
     private javax.swing.JButton RectangleButton;
-    private javax.swing.JButton SpoidButton;
     private javax.swing.JButton TriangleButton;
     private javax.swing.JPanel bottomPanel;
     private drawboard.DrawCanvas drawCanvas1;
@@ -394,7 +418,5 @@ public class DrawingPanel extends javax.swing.JPanel {
     private javax.swing.JPanel leftBarPanel;
     private javax.swing.JButton loadImageButton;
     private javax.swing.JSlider opacitySlider;
-    private javax.swing.JButton saveAsButton;
-    private javax.swing.JButton saveButton;
     // End of variables declaration//GEN-END:variables
 }

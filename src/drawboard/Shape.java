@@ -84,47 +84,48 @@ public abstract class Shape {
         return anchors;
     }
     //set point by rectangular
-    public void SetPointR(Anchor selected, Vector2 position)
+    public void ModifyAnchorR(Anchor selected, Vector2 position)
     {
         switch(selected.posatshape)
         {
-                case lefttop:
-                    p1 = new Vector2(position);
-                    break;
-                    
-                case righttop://calculate at reverse rotated plane
-                case leftbot:
-                    Vector2 p1r = p1.rotate(-rotation);
-                    Vector2 p2r = p2.rotate(-rotation);
-                    Vector2 pr = position.rotate(-rotation);
-                    
-                    switch(selected.posatshape)
-                    {
-                        case righttop:
-                            p2r.x = pr.x;
-                            p1r.y = pr.y;
-                            break;
-                        case leftbot:
-                            p1r.x = pr.x;
-                            p2r.y = pr.y;
-                    }
-                    p1 = p1r.rotate(rotation);
-                    p2 = p2r.rotate(rotation);
-                    System.out.println("A"+p1r + p2r + p1 + p2);
-                    System.out.println("B"+p1r + p2r + p1 + p2);
-                    break;
-                    
-                case rightbot:
-                    p2 = new Vector2(position);
-                    break;
+            case lefttop:
+                p1 = new Vector2(position);
+                break;
+
+            case righttop://calculate at reverse rotated plane
+            case leftbot:
+                Vector2 p1r = p1.rotate(-rotation);
+                Vector2 p2r = p2.rotate(-rotation);
+                Vector2 pr = position.rotate(-rotation);
+
+                switch(selected.posatshape)
+                {
+                    case righttop:
+                        p2r.x = pr.x;
+                        p1r.y = pr.y;
+                        break;
+                    case leftbot:
+                        p1r.x = pr.x;
+                        p2r.y = pr.y;
+                }
+                p1 = p1r.rotate(rotation);
+                p2 = p2r.rotate(rotation);
+                System.out.println("A"+p1r + p2r + p1 + p2);
+                System.out.println("B"+p1r + p2r + p1 + p2);
+                break;
+
+            case rightbot:
+                p2 = new Vector2(position);
+                break;
         }
         RecalculateAnchors();
     }
-    public void SetPointC(Anchor selected, Vector2 position)
+    public void ModifyAnchorC(Anchor selected, Vector2 position)
     {
         Vector2 center = p1.Add(p2).Multiply(0.5f);
         float angle = Vector2.GetAngle(selected.v2pos.Subtract(center),position.Subtract(center));
         this.rotation += angle;
+        System.out.println(this.rotation + "" + angle);
         
         float size =  position.Subtract(center).Magnitude()/selected.v2pos.Subtract(center).Magnitude();
         //System.out.println(p1 + "," + p2 +"," + center);
@@ -170,8 +171,6 @@ public abstract class Shape {
     {
         for(Anchor anchor : anchors)
         {
-            if(anchor.enabled == false)
-                continue;
             g.setColor(Color.white);
             g.fillRect((int)( anchor.v2pos.x * canvassize.x)-4, (int)( anchor.v2pos.y * canvassize.y)-4, 7, 7);
             g.setColor(Color.black);

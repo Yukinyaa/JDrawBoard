@@ -28,6 +28,5 @@ public class Anchor
     public Vector2 v2pos = new Vector2(0, 0);
     public VertexPos posatshape;
     public Shape parent;
-    public boolean selectable = true;
-    public boolean enabled = true;
 }
+
