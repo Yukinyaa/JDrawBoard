@@ -7,6 +7,8 @@ package drawboard;
 
 import java.awt.Color;
 import java.awt.event.ItemEvent;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -30,6 +32,7 @@ public class DrawingPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jSlider1 = new javax.swing.JSlider();
         leftBarPanel = new javax.swing.JPanel();
         SpoidButton = new javax.swing.JButton();
         ModeSelectToggleButton = new javax.swing.JToggleButton();
@@ -38,6 +41,10 @@ public class DrawingPanel extends javax.swing.JPanel {
         CircleButton = new javax.swing.JButton();
         OctagonButton = new javax.swing.JButton();
         ColorButton = new javax.swing.JButton();
+        label1 = new java.awt.Label();
+        jLabel1 = new javax.swing.JLabel();
+        FillColorButton = new javax.swing.JButton();
+        BorderColorButoon = new javax.swing.JButton();
         bottomPanel = new javax.swing.JPanel();
         imagePanel = new javax.swing.JPanel();
         loadImageButton = new javax.swing.JButton();
@@ -54,7 +61,7 @@ public class DrawingPanel extends javax.swing.JPanel {
             }
         });
 
-        ModeSelectToggleButton.setText("R");
+        ModeSelectToggleButton.setText("Rectangular");
         ModeSelectToggleButton.setFocusable(false);
         ModeSelectToggleButton.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -78,26 +85,73 @@ public class DrawingPanel extends javax.swing.JPanel {
 
         ColorButton.setBackground(new java.awt.Color(255, 255, 255));
         ColorButton.setText("color");
+        ColorButton.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         ColorButton.setFocusable(false);
+        ColorButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ColorButtonMouseClicked(evt);
+            }
+        });
+
+        label1.setText("DrawingMode");
+
+        jLabel1.setText("Set As..,");
+
+        FillColorButton.setText("FillColor");
+        FillColorButton.setFocusCycleRoot(true);
+        FillColorButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                FillColorButtonMouseClicked(evt);
+            }
+        });
+
+        BorderColorButoon.setText("BorderColor");
+        BorderColorButoon.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BorderColorButoonMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout leftBarPanelLayout = new javax.swing.GroupLayout(leftBarPanel);
         leftBarPanel.setLayout(leftBarPanelLayout);
         leftBarPanelLayout.setHorizontalGroup(
             leftBarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(leftBarPanelLayout.createSequentialGroup()
-                .addGap(5, 5, 5)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, leftBarPanelLayout.createSequentialGroup()
                 .addGroup(leftBarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(CircleButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(RectangleButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(OctagonButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(TriangleButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, leftBarPanelLayout.createSequentialGroup()
+                    .addGroup(leftBarPanelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(leftBarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, leftBarPanelLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(7, 7, 7))
+                            .addComponent(ModeSelectToggleButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(leftBarPanelLayout.createSequentialGroup()
+                        .addGap(5, 5, 5)
+                        .addGroup(leftBarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(CircleButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(RectangleButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(OctagonButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(TriangleButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addGap(21, 21, 21))
+            .addGroup(leftBarPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(leftBarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(leftBarPanelLayout.createSequentialGroup()
+                        .addComponent(FillColorButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(leftBarPanelLayout.createSequentialGroup()
+                        .addComponent(BorderColorButoon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, leftBarPanelLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabel1)
+                        .addGap(30, 30, 30))
+                    .addGroup(leftBarPanelLayout.createSequentialGroup()
                         .addComponent(ColorButton, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(SpoidButton, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 13, Short.MAX_VALUE)))
-                .addGap(5, 5, 5))
-            .addComponent(ModeSelectToggleButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         leftBarPanelLayout.setVerticalGroup(
             leftBarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -110,14 +164,25 @@ public class DrawingPanel extends javax.swing.JPanel {
                 .addComponent(CircleButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(OctagonButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(51, 51, 51)
                 .addGroup(leftBarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(ColorButton)
                     .addComponent(SpoidButton, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(FillColorButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(BorderColorButoon)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
+                .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(2, 2, 2)
                 .addComponent(ModeSelectToggleButton)
-                .addContainerGap(85, Short.MAX_VALUE))
+                .addContainerGap())
         );
+
+        new ColorUpdateThread().start();
+        jLabel1.getAccessibleContext().setAccessibleName("SetAsText");
 
         bottomPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -174,7 +239,7 @@ public class DrawingPanel extends javax.swing.JPanel {
             .addGroup(bottomPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(imagePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 251, Short.MAX_VALUE)
                 .addComponent(saveButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(saveAsButton)
@@ -196,11 +261,11 @@ public class DrawingPanel extends javax.swing.JPanel {
         drawCanvas1.setLayout(drawCanvas1Layout);
         drawCanvas1Layout.setHorizontalGroup(
             drawCanvas1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 600, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         drawCanvas1Layout.setVerticalGroup(
             drawCanvas1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 600, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -209,24 +274,22 @@ public class DrawingPanel extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(bottomPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(leftBarPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(drawCanvas1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(bottomPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(drawCanvas1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(leftBarPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 325, Short.MAX_VALUE))
-                    .addComponent(drawCanvas1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(leftBarPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(drawCanvas1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(bottomPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -257,24 +320,66 @@ public class DrawingPanel extends javax.swing.JPanel {
     private void ModeSelectToggleButtonItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_ModeSelectToggleButtonItemStateChanged
         drawCanvas1.init();
         
-        if(evt.getStateChange()==ItemEvent.SELECTED)
+        if(evt.getStateChange()==ItemEvent.DESELECTED)
         {
-            ModeSelectToggleButton.setBackground(new Color(0x22ff22));
             ModeSelectToggleButton.setText("Rectangular");
             drawCanvas1.c.d  = DrawingMode.R;
         }
-        else if(evt.getStateChange()==ItemEvent.DESELECTED)
+        else if(evt.getStateChange()==ItemEvent.SELECTED)
         {
-            ModeSelectToggleButton.setBackground(new Color(0x22ff22));
             ModeSelectToggleButton.setText("Circular");
             drawCanvas1.c.d  = DrawingMode.C;
         }
     }//GEN-LAST:event_ModeSelectToggleButtonItemStateChanged
 
+    Color selectedColor = Color.black;
+    private void ColorButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ColorButtonMouseClicked
+        if(evt.getButton() != 1)
+            return;
+        ColorChooser.GetWindow().setVisible(true);
+        ColorButton.setEnabled(false);
+    }//GEN-LAST:event_ColorButtonMouseClicked
+
+    private void FillColorButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_FillColorButtonMouseClicked
+        if(evt.getButton() != 1)
+            return;
+        System.out.println("LALALA" + selectedColor);
+        if(drawCanvas1.s.selectedShape !=  null)
+            drawCanvas1.s.selectedShape.fillcolor = selectedColor;
+    }//GEN-LAST:event_FillColorButtonMouseClicked
+
+    private void BorderColorButoonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BorderColorButoonMouseClicked
+        if(evt.getButton() != 1)
+            return;
+        System.out.println("LALALA" + selectedColor);
+        if(drawCanvas1.s.selectedShape !=  null)
+            drawCanvas1.s.selectedShape.color = selectedColor;
+    }//GEN-LAST:event_BorderColorButoonMouseClicked
+
+    
+    class ColorUpdateThread extends Thread {
+        @Override
+        public void run()
+        {
+            while(true)
+            {
+                selectedColor = ColorChooser.GetWindow().GetColor();
+                ColorButton.setEnabled(true);
+                ColorButton.setBackground(selectedColor);
+                ColorButton.setForeground(new Color(~selectedColor.getRGB()));
+                try {Thread.sleep(10);} catch (InterruptedException ex) {}
+            }
+            
+        }
+    }
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BorderColorButoon;
     private javax.swing.JButton CircleButton;
     private javax.swing.JButton ColorButton;
+    private javax.swing.JButton FillColorButton;
     private javax.swing.JToggleButton ModeSelectToggleButton;
     private javax.swing.JButton OctagonButton;
     private javax.swing.JButton RectangleButton;
@@ -283,6 +388,9 @@ public class DrawingPanel extends javax.swing.JPanel {
     private javax.swing.JPanel bottomPanel;
     private drawboard.DrawCanvas drawCanvas1;
     private javax.swing.JPanel imagePanel;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JSlider jSlider1;
+    private java.awt.Label label1;
     private javax.swing.JPanel leftBarPanel;
     private javax.swing.JButton loadImageButton;
     private javax.swing.JSlider opacitySlider;

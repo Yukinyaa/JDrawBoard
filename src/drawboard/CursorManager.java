@@ -21,7 +21,7 @@ public class CursorManager implements MouseListener, MouseMotionListener{
     ArrayList<Anchor> anchors = new ArrayList<>();
     Vector2 canvassize;
     ShapeManager s;
-    public DrawingMode d = DrawingMode.C;
+    public DrawingMode d = DrawingMode.R;
     Shape newShape = null;
     DrawCanvas canvas;
     
@@ -99,10 +99,12 @@ public class CursorManager implements MouseListener, MouseMotionListener{
 
     private Anchor pressedAnchor;
     
+    private Vector2 mousePrevLoc;
     @Override
     public void mousePressed(MouseEvent e) {
         if(e.getButton() != 1) return;
         Vector2 mouseLocation = new Vector2(e.getX(),e.getY());
+        mousePrevLoc = mouseLocation;
         Vector2 mouseLocationRemapped = mouseLocation.Remap(canvassize.Reciprocal());
        
         
@@ -130,7 +132,7 @@ public class CursorManager implements MouseListener, MouseMotionListener{
             {
                 for(Anchor v : s.selectedShape.GetAnchors())
                 {
-                    if(v.v2pos.Remap(canvassize).Subtract(mouseLocation).ManhattanSize() < 3 )
+                    if(v.v2pos.Remap(canvassize).Subtract(mouseLocation).ManhattanSize() < 6 )
                     {
                         pressedAnchor = v;
                         break;
@@ -157,7 +159,8 @@ public class CursorManager implements MouseListener, MouseMotionListener{
     @Override
     public void mouseDragged(MouseEvent e) {
         Vector2 mouseLocation = new Vector2(e.getX(),e.getY());
-        
+        Vector2 mouseLocDelta = mouseLocation.Subtract(mousePrevLoc);
+        mousePrevLoc = mouseLocation;
         while(DrawCanvas.renderLock)
             try { Thread.sleep(1); } catch (InterruptedException ie) { }
         
@@ -177,6 +180,14 @@ public class CursorManager implements MouseListener, MouseMotionListener{
                     break;
             }
         }
+        else if(s.selectedShape != null)
+        {
+            Anchor lt = s.selectedShape.GetAnchor(VertexPos.lefttop);
+            s.selectedShape.SetPointR(lt, mouseLocDelta.Remap(canvassize.Reciprocal()).Add(lt.v2pos));
+            Anchor rb = s.selectedShape.GetAnchor(VertexPos.rightbot);
+            s.selectedShape.SetPointR(rb, mouseLocDelta.Remap(canvassize.Reciprocal()).Add(rb.v2pos));
+        }
+        
         
         DrawCanvas.renderLock = false;
     }

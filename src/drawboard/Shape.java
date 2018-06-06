@@ -154,18 +154,15 @@ public abstract class Shape {
     {
         if(polygon == null)
             this.RecalculatePolygon();
-        g.setColor(color);
-        g.drawPolygon(polygon);
         g.setColor(fillcolor);
         g.fillPolygon(polygon);
+        g.setColor(color);
+        g.drawPolygon(polygon);
     }
     
     public void DrawThisVirtually(Graphics g, Vector2 canvassize)
     {
-        if(polygon == null)
-            this.RecalculatePolygon();
-        g.setColor(new Color(color.getRed(),color.getBlue(),color.getGreen(),0.9f));
-        g.drawPolygon(polygon);
+        DrawThis(g,canvassize);
     }
     
     
